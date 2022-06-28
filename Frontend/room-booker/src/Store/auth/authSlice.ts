@@ -1,4 +1,4 @@
-import { AnyAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { loginAPI } from '../../Services/user.service';
 import { AuthState } from '../../Models/State/AuthState';
 import { LoginState } from '../../Enums/LoginState';
@@ -9,19 +9,11 @@ export const userLogin = createAsyncThunk<User, {username: string, password:stri
   'auth/userLogin',
   async (userLoginInfo: {username: string, password: string}) => {
     const userSerializer: UserSerializer = new UserSerializer();
-    const response = await loginAPI(userLoginInfo)
-    const user: User = userSerializer.fromJson(response.user, response.access_token)
-    return user
+    const response = await loginAPI(userLoginInfo);
+    const user: User = userSerializer.fromJson(response.user, response.access_token);
+    return user;
   }
 )
-
-// export const userLogin = createAsyncThunk(
-//   'auth/userLogout',
-//   async (thunkAPI) => {
-//     dispatch(logout())
-//     dispatch(push('/login'))
-//   }
-// )
 
 const initialState: AuthState = {
     user: {
@@ -45,14 +37,14 @@ export const authSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(userLogin.fulfilled, (state, action) => {
-      state.loginState = LoginState.LoggedIn
-      state.user = action.payload
+      state.loginState = LoginState.LoggedIn;
+      state.user = action.payload;
     })
     .addCase(userLogin.pending, (state, action) => {
-      state.loginState = LoginState.LoggingIn
+      state.loginState = LoginState.LoggingIn;
     })
     .addCase(userLogin.rejected, (state, action) => {
-      state.loginState = initialState
+      state.loginState = initialState;
     })
   },
 })

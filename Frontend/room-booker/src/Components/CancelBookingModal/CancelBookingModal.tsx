@@ -6,7 +6,7 @@ import Endpoints from "../../Endpoints/Endpoints";
 
 function CancelBookingModal(props: {show: boolean, roomSlot: BookingSlot | null, roomName: string, closeCallback: () => void, updateCallback: () => void}) {
     const updateBooking = () => {
-      return axios.patch(Endpoints.bookings + "/" + props.roomSlot?.room_booking_id, {user_id: null})
+      return axios.patch(Endpoints.bookings + "/" + props.roomSlot?.room_booking_id, {user_id: null});
     }
 
     const bookClicked = () => {

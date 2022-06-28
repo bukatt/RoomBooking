@@ -2,23 +2,22 @@ import { useState } from "react";
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
-import { useDispatch } from 'react-redux'
 import axios from "axios";
 import Endpoints from "../../Endpoints/Endpoints";
 import { Navigate } from 'react-router-dom';
 import { Container, Stack } from "react-bootstrap";
 
 function SignUpPage() {
-    const [formValues, setFormValues] = useState({password: '', email: '', first_name: '', last_name: ''})
-    const [validated, setValidated] = useState(false)
-    const [successfulSubmission, setSuccessfulSubmission] = useState(false)
-    const dispatch = useDispatch()
-
+    const [formValues, setFormValues] = useState({password: '', email: '', first_name: '', last_name: ''});
+    const [validated, setValidated] = useState(false);
+    const [successfulSubmission, setSuccessfulSubmission] = useState(false);
+    const [emailInUse, setEmailInUse] = useState(false);
+    
     const handleChange = (event: any) => {
         const name = event.target.name;
         const value = event.target.value;
         setFormValues(values => ({...values, [name]: value}))
-    }
+    };
 
     const handleSubmit = (event: any) => {
         const form = event.currentTarget;
@@ -26,34 +25,49 @@ function SignUpPage() {
             event.preventDefault();
             event.stopPropagation();
         } else {
+            console.log("validity")
             event.preventDefault();
-            console.log(Endpoints.user)
             axios.post(Endpoints.user, formValues).then( res => {
                 setSuccessfulSubmission(true);
+                setValidated(true);
+            },
+            err => {
+                if(err.response?.data?.detail === "Email already registered"){
+                    setEmailInUse(true);
+                }
+                setValidated(true);
             });
         }
-        setValidated(true)
     };
 
     if(successfulSubmission){
         return <Navigate to='/login' />
     }
 
-    const checkValidEmail = () => {
-        const domain = formValues.email.split('@')[1]
-        return domain != "coke.com" && domain != "pepsi.com" && validated
+    const checkInValidEmail = () => {
+        const emailParsed = formValues.email.split('@');
+        if(emailParsed.length > 1){
+            const domain = emailParsed[1]
+            return (domain !== "coke.com" && domain !== "pepsi.com" && validated) || (validated && emailInUse);
+        } else {
+            return validated;
+        }
+    }
+
+    const emailValidationText = () => {
+        return emailInUse ? "Email has already been registered. Please try again." : "Please enter a valid email.";
     }
 
     return (
         <Container className="flex-justify-center">
         <Card style={{ width: '18rem', backgroundColor: '#F5F5F5' }}>
             <Card.Body>
-                <Form noValidate validated={validated} onSubmit={handleSubmit}>
+                <Form noValidate onSubmit={handleSubmit}>
                     <Form.Group className="mb-3" controlId="formBasicEmail">
                     <Form.Label>Email address</Form.Label>
-                    <Form.Control isInvalid={checkValidEmail()} required type="email" name="email" placeholder="Enter email" value={formValues.email} onChange={handleChange}/>
+                    <Form.Control isInvalid={checkInValidEmail()} required type="email" name="email" placeholder="Enter email" value={formValues.email} onChange={handleChange}/>
                     <Form.Control.Feedback type="invalid">
-                        Please provide a valid email.
+                        {emailValidationText()}
                     </Form.Control.Feedback>
                     </Form.Group>
                     <Form.Group className="mb-3" controlId="formFirstName">

@@ -4,9 +4,7 @@ import { Navigate } from "react-router-dom";
 
 function LogoutPage(props: any) {
     const dispatch = useDispatch()
-    dispatch(logout())
-    //userLogout(dispatch)
-    //dispatch(userLogout())
+    dispatch(logout());
 
     return (
         <Navigate to='/login' />

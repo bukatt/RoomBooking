@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
@@ -9,9 +9,7 @@ import { Navigate } from 'react-router-dom';
 import { Container } from "react-bootstrap";
 import "./LoginPage.css"
 import { LoginState } from "../../Enums/LoginState";
-import { AppState } from "../../Models/State/AppState";
-import { AnyAction } from "@reduxjs/toolkit";
-import { store, useAppDispatch } from "../../Store/store";
+import { useAppDispatch } from "../../Store/store";
 
 function LoginPage() {
     const [formValues, setFormValues] = useState({password: "", email: ""})
@@ -33,7 +31,6 @@ function LoginPage() {
     };
 
     if(loginState === LoginState.LoggedIn){
-        console.log("")
         return  <Navigate to='/room-bookings' />
     }
 

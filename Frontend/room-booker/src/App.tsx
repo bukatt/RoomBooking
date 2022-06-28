@@ -5,7 +5,6 @@ import LoginPage from './Pages/LoginPage/LoginPage';
 import RoomBookingPage from './Pages/RoomBookingPage/RoomBookingPage';
 import LogoutPage from './Pages/LogoutPage/LogoutPage';
 import NavBar from './Components/NavBar/NavBar';
-import { Container } from 'react-bootstrap';
 
 
 function App() {

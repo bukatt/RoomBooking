@@ -13,8 +13,6 @@ const persistConfig = {
   storage,
 };
 
-//export const history = createBrowserHistory()
-
 const reducers = combineReducers({
   auth: authSlice 
 });
@@ -26,7 +24,7 @@ export const store = configureStore({
   middleware: [thunk]
 });
 
-export const persistor = persistStore(store)
+export const persistor = persistStore(store);
 
 export type AppDispatch = typeof store.dispatch;
 export const useAppDispatch = () => useDispatch<AppDispatch>();

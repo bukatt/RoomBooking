@@ -11,29 +11,29 @@ function NavBar() {
         if(loginState === LoginState.LoggedIn){
             return user.company_id === 1 ? "Coca-Cola" : 'Pepsi';
         } else {
-            return "Room Booking"
+            return "Room Booking";
         }
     }
 
     const getLoginText = () => {
         if (loginState === LoginState.LoggedIn){
-            return "Log out"
+            return "Log out";
         } else if(loginState === LoginState.LoggedOut) {
-            return "Login"
+            return "Login";
         } else if (loginState === LoginState.LoggingIn) {
-            return "Logging In..."
+            return "Logging In...";
         } else {
-            return "Login"
+            return "Login";
         }
     }
 
     const loginRoute = () => {
         if (loginState === LoginState.LoggedIn){
-            return "/logout"
+            return "/logout";
         } else if(loginState === LoginState.LoggedOut) {
-            return "/login"
+            return "/login";
         } else {
-            return ""
+            return "";
         }
     }
 

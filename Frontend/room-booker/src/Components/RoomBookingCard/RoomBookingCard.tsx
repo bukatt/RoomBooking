@@ -14,50 +14,50 @@ import CancelBookingModal from "../CancelBookingModal/CancelBookingModal";
 import { Col, Row } from "react-bootstrap";
 
 function RoomBookingCard(props: {room: Room, updateCallback: () => void}) {
-    const { user, loginState } = useSelector((state: AppState) => state.auth)
+    const { user, loginState } = useSelector((state: AppState) => state.auth);
     const [showBookingModal, setShowBookingModal] = useState(false);
     const [showCancelModal, setShowCancelModal] = useState(false);
     const [clickedBooking, setClickedBooking] = useState<BookingSlot | null>(null);
 
     const getButtonVariant = (slotUser: number | null) : string => {
       if(!slotUser){
-        return 'outline-primary'
+        return 'outline-primary';
       } else if (slotUser === user.user_id) {
-        return 'outline-success'
+        return 'outline-success';
       } else {
-        return 'outline-danger'
+        return 'outline-danger';
       }
     }
 
     const formatDate = (localTime: joda.LocalTime) => {
-      const formatter: joda.DateTimeFormatter = new joda.DateTimeFormatterBuilder().appendPattern("h:mm a").toFormatter().withLocale(Locale.Locale.US)
-      return localTime.format(formatter)
+      const formatter: joda.DateTimeFormatter = new joda.DateTimeFormatterBuilder().appendPattern("h:mm a").toFormatter().withLocale(Locale.Locale.US);
+      return localTime.format(formatter);
     }
 
     const onSlotClicked = (booking: BookingSlot) => {
-      setClickedBooking(booking)
+      setClickedBooking(booking);
       switch(booking.status){
         case BookingSlotStatus.Available:
-          setShowBookingModal(true)
+          setShowBookingModal(true);
           break;
         case BookingSlotStatus.MyBooking:
           setShowCancelModal(true);
           break;
         default:
-          break
+          break;
       }
     }
 
     const onBookingModalClosed = () => {
-      setShowBookingModal(false)
+      setShowBookingModal(false);
     }
 
     const onCancelModalClosed = () => {
-      setShowCancelModal(false)
+      setShowCancelModal(false);
     }
 
     const bookingButtonDisabled = (booking: BookingSlot) => {
-      return booking.status === BookingSlotStatus.Unavailable ? true : false
+      return booking.status === BookingSlotStatus.Unavailable ? true : false;
     }
 
     return (

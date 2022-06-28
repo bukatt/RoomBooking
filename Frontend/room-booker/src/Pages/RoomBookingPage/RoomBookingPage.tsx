@@ -16,34 +16,29 @@ function RoomBookingPage() {
     const ws: any = useRef(null);
 
     const getRooms = () => {
-        return axios.get(Endpoints.rooms)
+        return axios.get(Endpoints.rooms);
     }
-
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     useEffect(() => {
         ws.connection = new WebSocket(Endpoints.roomsWS);
         if(ws?.connection){
-            console.log("on ws")
             ws.connection.onmessage = (event: any) => {
-                fetchRooms()
+                fetchRooms();
             };
         }
-
         fetchRooms()
-
       }, [])
     
     const fetchRooms = () => {
         getRooms().then(response => {
-            const roomsData: Room[] = response.data.map((room: any) => roomSerializer.fromJson(room, user.user_id))
-            setRooms(roomsData)
+            const roomsData: Room[] = response.data.map((room: any) => roomSerializer.fromJson(room, user.user_id));
+            setRooms(roomsData);
         })
     }
     
     const onUpdateCallback = () => {
-        console.log("WS update")
-        console.log(ws)
         if(ws?.connection){
-            ws.connection.send(JSON.stringify({company_id: user.company_id}))
+            ws.connection.send(JSON.stringify({company_id: user.company_id}));
         }
     }
     
