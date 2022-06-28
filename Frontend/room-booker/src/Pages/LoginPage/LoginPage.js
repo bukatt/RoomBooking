@@ -2,27 +2,30 @@ import React, { useState } from "react";
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
-import { useDispatch, useSelector } from 'react-redux'
+import Stack from "react-bootstrap/Stack";
+import { useSelector } from 'react-redux'
 import { userLogin } from "../../Store/auth/authSlice";
 import { Navigate } from 'react-router-dom';
 import { Container } from "react-bootstrap";
 import "./LoginPage.css"
 import { LoginState } from "../../Enums/LoginState";
 import { AppState } from "../../Models/State/AppState";
+import { AnyAction } from "@reduxjs/toolkit";
+import { store, useAppDispatch } from "../../Store/store";
 
 function LoginPage() {
     const [formValues, setFormValues] = useState({password: "", email: ""})
-    const dispatch = useDispatch()
-    const { user, loginState } = useSelector((state: AppState) => state.auth)
+    const dispatch = useAppDispatch()
+    const { user, loginState } = useSelector((state) => state.auth)
 
-    const handleChange = (event: any) => {
+    const handleChange = (event) => {
         const name = event.target.name;
         const value = event.target.value;
         
         setFormValues(values => ({...values, [name]: value}))
     }
 
-    const handleSubmit = (event: any) => {
+    const handleSubmit = (event) => {
         if (event){
             event.preventDefault();
         }
@@ -36,7 +39,7 @@ function LoginPage() {
 
     return (
         <Container className="flex-justify-center">
-        <Card style={{ width: '18rem' }}>
+        <Card style={{ width: '18rem', backgroundColor: '#F5F5F5' }}>
             <Card.Body>
                 <Form onSubmit={handleSubmit}>
                     <Form.Group className="mb-3" controlId="formBasicEmail">
@@ -47,12 +50,14 @@ function LoginPage() {
                         <Form.Label>Password</Form.Label>
                         <Form.Control type="password" name="password" placeholder="Password" value={formValues.password} onChange={handleChange}/>
                     </Form.Group>
+                    <Stack direction="horizontal" gap={3}>
                     <Button href="/sign-up" variant="link">
                         Sign Up
                     </Button>
                     <Button variant="primary" type="submit">
                         Sign In
                     </Button>
+                    </Stack>
                 </Form>
             </Card.Body>
         </Card>

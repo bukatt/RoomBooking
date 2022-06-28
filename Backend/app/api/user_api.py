@@ -1,11 +1,8 @@
-from typing import List
-from models import user as user_model
 from crud import user as user_crud
 from fastapi import Depends, FastAPI, HTTPException, APIRouter
 from sqlalchemy.orm import Session
 from schema import user as user_schema
 from db.db import get_db
-
 router = APIRouter()
 
 @router.post("/user", response_model=user_schema.User)

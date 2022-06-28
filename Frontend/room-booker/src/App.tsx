@@ -5,6 +5,7 @@ import LoginPage from './Pages/LoginPage/LoginPage';
 import RoomBookingPage from './Pages/RoomBookingPage/RoomBookingPage';
 import LogoutPage from './Pages/LogoutPage/LogoutPage';
 import NavBar from './Components/NavBar/NavBar';
+import { Container } from 'react-bootstrap';
 
 
 function App() {
@@ -19,7 +20,7 @@ function App() {
         integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
         crossOrigin="anonymous"
       />
-        <div className="page-container">
+      <div className="page-container">
           <NavBar />
           <Routes>
             <Route path="/" element={<LoginPage />}/>
@@ -28,7 +29,7 @@ function App() {
             <Route path="/room-bookings" element={<RoomBookingPage />}/>
             <Route path="/logout" element={<LogoutPage />} />
           </Routes>
-        </div>
+          </div>
       </header>
     </div>
   );

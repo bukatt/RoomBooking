@@ -49,7 +49,7 @@ function RoomBookingPage() {
     
     return (
         <Container>
-                <Card className={`legend mb-5`}>
+                <Card className={`legend mb-5`} style={{backgroundColor: '#F5F5F5'}}>
                     <Card.Body>
                     <Card.Title>Legend:</Card.Title>
                         <Row>
@@ -57,7 +57,7 @@ function RoomBookingPage() {
                                 <Button variant="outline-primary">Available</Button>
                             </Col>
                             <Col>
-                                <Button disabled variant="outline-secondary">Unavailable</Button>
+                                <Button disabled variant="outline-danger">Unavailable</Button>
                             </Col>
                             <Col>
                                 <Button variant="outline-success">My Booking</Button>

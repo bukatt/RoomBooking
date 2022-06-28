@@ -20,13 +20,9 @@ def upgrade():
     op.create_table(
         'room_booking',
         sa.Column('room_booking_id', sa.Integer, primary_key=True),
-        sa.Column('room', sa.String(50), nullable=False),
-        sa.Column('user', sa.String(50), nullable=False),
-        sa.Column('time', sa.String(500), nullable=False),
         sa.Column('room_id', sa.Integer, nullable=False),
-        sa.Column('user_id', sa.Integer, nullable=False),
-        sa.Column('start_time', sa.Time, nullable=False),
-        sa.Column('end_time', sa.Time, nullable=False)
+        sa.Column('user_id', sa.Integer, nullable=True),
+        sa.Column('start_time', sa.Time, nullable=False)
 
     )
 

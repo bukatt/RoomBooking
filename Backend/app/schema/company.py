@@ -1,18 +1,22 @@
 from typing import List, Optional
-from fastapi import FastAPI
 from pydantic import BaseModel
-from .room import RoomBase
 from .user import UserBase
+
 class CompanyBase(BaseModel):
-    name: str
-    rooms: List[RoomBase]
-    employees: List[UserBase]
+    company_name: str
+    domain: str
+    class Config:
+        orm_mode = True
 
 class CompanyDB(CompanyBase):
     company_id: int
 
+class CompanyCreate(CompanyBase):
+    pass
+
 class Company(CompanyBase):
     company_id: int
+    employees: List[UserBase] = []
 
     class Config:
         orm_mode = True

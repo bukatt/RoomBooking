@@ -1,13 +1,13 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { AnyAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { loginAPI } from '../../Services/user.service';
 import { AuthState } from '../../Models/State/AuthState';
 import { LoginState } from '../../Enums/LoginState';
 import { UserSerializer } from '../../Serializers/UserSerializer';
 import { User } from '../../Models/User';
 
-export const userLogin = createAsyncThunk(
+export const userLogin = createAsyncThunk<User, {username: string, password:string}, {}>(
   'auth/userLogin',
-  async (userLoginInfo: any, thunkAPI) => {
+  async (userLoginInfo: {username: string, password: string}) => {
     const userSerializer: UserSerializer = new UserSerializer();
     const response = await loginAPI(userLoginInfo)
     const user: User = userSerializer.fromJson(response.user, response.access_token)

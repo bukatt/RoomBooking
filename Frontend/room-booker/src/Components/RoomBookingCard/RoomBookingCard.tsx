@@ -25,7 +25,7 @@ function RoomBookingCard(props: {room: Room, updateCallback: () => void}) {
       } else if (slotUser === user.user_id) {
         return 'outline-success'
       } else {
-        return 'outline-secondary'
+        return 'outline-danger'
       }
     }
 
@@ -62,7 +62,7 @@ function RoomBookingCard(props: {room: Room, updateCallback: () => void}) {
 
     return (
       <>
-      <Card className="card">
+      <Card style={{backgroundColor: '#F5F5F5'}} className="card">
         <Card.Body>
             <Card.Title>
             {`Room: ${props.room.name}`}

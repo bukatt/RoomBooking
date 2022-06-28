@@ -1,29 +1,25 @@
-from datetime import datetime
+from datetime import datetime, time
 from typing import Optional, List
 from fastapi import FastAPI
 from pydantic import BaseModel
-from .user import UserBase
-from .room import RoomBase
 
 class RoomBookingBase(BaseModel):
-    start_time: datetime.hour
-    end_time: datetime.hour
-
-class RoomBookingUser(RoomBookingBase):
-    user: UserBase
-
-class RoomBookingRoom(RoomBookingBase):
-    room: RoomBase
+    start_time: time
 
 class RoomBookingCreate(RoomBookingBase):
-    user_id: int
     room_id: int
+
+class RoomBookingUpdate(BaseModel):
+    user_id: Optional[int] = None
 
 class RoomBookingDB(RoomBookingBase):
     room_booking_id: int
+    user_id: Optional[int] = None
 
 class RoomBooking(RoomBookingBase):
     room_booking_id: int
-
+    user_id: Optional[int] = None
+    room_id: int
+    
     class Config:
         orm_mode = True

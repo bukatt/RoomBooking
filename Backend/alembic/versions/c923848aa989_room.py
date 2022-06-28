@@ -21,7 +21,6 @@ def upgrade():
         'room',
         sa.Column('room_id', sa.Integer, primary_key=True),
         sa.Column('name', sa.String(50), nullable=False),
-        sa.Column('bookings', sa.String(50), nullable=False),
         sa.Column('company_id', sa.Integer, nullable=False)
     )
 
