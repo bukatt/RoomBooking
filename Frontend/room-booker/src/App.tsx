@@ -2,9 +2,13 @@ import './App.css';
 import { Route, Routes } from 'react-router-dom';
 import SignUpPage from './Pages/SignUpPage/SignUpPage';
 import LoginPage from './Pages/LoginPage/LoginPage';
-import MyBookingsPage from './Pages/MyBookingsPage/MyBookingsPage';
+import RoomBookingPage from './Pages/RoomBookingPage/RoomBookingPage';
+import LogoutPage from './Pages/LogoutPage/LogoutPage';
+import NavBar from './Components/NavBar/NavBar';
+
 
 function App() {
+
   return (
       <div className="App">
       <header className="App-header">
@@ -16,11 +20,13 @@ function App() {
         crossOrigin="anonymous"
       />
         <div className="page-container">
+          <NavBar />
           <Routes>
-            <Route exact path="/" element={<SignUpPage />}/>
-            <Route exact path="/sign-up" element={<SignUpPage />}/>
-            <Route exact path="/login" element={<LoginPage />}/>
-            <Route exact path="/my-bookings" element={<MyBookingsPage />}/>
+            <Route path="/" element={<LoginPage />}/>
+            <Route path="/sign-up" element={<SignUpPage />}/>
+            <Route path="/login" element={<LoginPage />}/>
+            <Route path="/room-bookings" element={<RoomBookingPage />}/>
+            <Route path="/logout" element={<LogoutPage />} />
           </Routes>
         </div>
       </header>

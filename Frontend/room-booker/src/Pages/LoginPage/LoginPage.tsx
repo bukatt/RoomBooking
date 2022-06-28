@@ -1,37 +1,42 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import { useDispatch, useSelector } from 'react-redux'
 import { userLogin } from "../../Store/auth/authSlice";
 import { Navigate } from 'react-router-dom';
-
+import { Container } from "react-bootstrap";
+import "./LoginPage.css"
+import { LoginState } from "../../Enums/LoginState";
+import { AppState } from "../../Models/State/AppState";
 
 function LoginPage() {
     const [formValues, setFormValues] = useState({password: "", email: ""})
     const dispatch = useDispatch()
-    const { user, loginState } = useSelector(state => state.auth)
+    const { user, loginState } = useSelector((state: AppState) => state.auth)
 
-    const handleChange = (event) => {
+    const handleChange = (event: any) => {
         const name = event.target.name;
         const value = event.target.value;
         
         setFormValues(values => ({...values, [name]: value}))
     }
 
-    const handleSubmit = (event) => {
+    const handleSubmit = (event: any) => {
         if (event){
             event.preventDefault();
         }
         dispatch(userLogin({username: formValues.email, password: formValues.password}));
     };
 
-    if(loginState === "loggedIn"){
-        return  <Navigate to='/my-bookings' />
+    if(loginState === LoginState.LoggedIn){
+        console.log("")
+        return  <Navigate to='/room-bookings' />
     }
 
     return (
-        <Card>
+        <Container className="flex-justify-center">
+        <Card style={{ width: '18rem' }}>
             <Card.Body>
                 <Form onSubmit={handleSubmit}>
                     <Form.Group className="mb-3" controlId="formBasicEmail">
@@ -51,7 +56,7 @@ function LoginPage() {
                 </Form>
             </Card.Body>
         </Card>
-
+        </Container>
     );
   }
   

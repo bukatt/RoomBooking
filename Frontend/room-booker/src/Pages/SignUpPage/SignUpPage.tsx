@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useState } from "react";
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
@@ -6,18 +6,19 @@ import { useDispatch } from 'react-redux'
 import axios from "axios";
 import Endpoints from "../../Endpoints/Endpoints";
 import { Navigate } from 'react-router-dom';
+import { Container } from "react-bootstrap";
 
 function SignUpPage() {
     const [formValues, setFormValues] = useState({password: '', email: '', first_name: '', last_name: ''})
     const dispatch = useDispatch()
 
-    const handleChange = (event) => {
+    const handleChange = (event: any) => {
         const name = event.target.name;
         const value = event.target.value;
         setFormValues(values => ({...values, [name]: value}))
     }
 
-    const handleSubmit = event => {
+    const handleSubmit = (event: any) => {
         event.preventDefault();
         console.log(Endpoints.user)
         axios.post(Endpoints.user, formValues).then( res => {
@@ -27,7 +28,8 @@ function SignUpPage() {
     };
 
     return (
-        <Card>
+        <Container className="flex-justify-center">
+        <Card style={{ width: '18rem' }}>
             <Card.Body>
                 <Form onSubmit={handleSubmit}>
                     <Form.Group className="mb-3" controlId="formBasicEmail">
@@ -55,7 +57,7 @@ function SignUpPage() {
                 </Form>
             </Card.Body>
         </Card>
-
+        </Container>
     );
   }
   
