@@ -8,7 +8,6 @@ import { PersistGate } from 'redux-persist/integration/react';
 import { persistor, store } from './Store/store';
 import * as ReactDOMClient from 'react-dom/client';
 
-
 axios.interceptors.request.use(
   (req) => {
     const token = store.getState().auth?.user?.token
@@ -17,7 +16,8 @@ axios.interceptors.request.use(
     return req
   },
   (err) => {
-     return Promise.reject(err);
+    console.error("An error occurred.")
+    return Promise.reject(err);
   }
 );
 

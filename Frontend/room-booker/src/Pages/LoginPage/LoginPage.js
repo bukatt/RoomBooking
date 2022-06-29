@@ -34,6 +34,10 @@ function LoginPage() {
         return  <Navigate to='/room-bookings' />
     }
 
+    const showError = () => {
+
+    }
+
     return (
         <Container className="flex-justify-center">
         <Card style={{ width: '18rem', backgroundColor: '#F5F5F5' }}>

@@ -19,6 +19,9 @@ function BookingModal(props: { show: boolean, roomSlot: BookingSlot | null, room
       if (props.roomSlot?.room_booking_id) {
         props.updateCallback();
       }
+    },
+    err => {
+      props.closeCallback();
     })
   }
 

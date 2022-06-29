@@ -1,4 +1,4 @@
-from http.client import HTTPException
+from fastapi import HTTPException
 from sqlalchemy.orm import Session
 from schema import room_booking as room_booking_schema
 from models import room_booking as room_booking_model
@@ -14,6 +14,8 @@ def update_room_booking(db: Session, booking_id: int, booking: room_booking_sche
     db_booking = db.query(room_booking_model.RoomBooking).filter(room_booking_model.RoomBooking.room_booking_id == booking_id).first()
     if not db_booking:
         raise HTTPException(status_code=404, detail="Sorry, booking not found")
+    if db_booking.user_id and booking.user_id:
+        raise HTTPException(status_code=403, detail="Someone has booked this slot already")
     booking_data = booking.dict(exclude_unset=True)
     for key, value in booking_data.items():
         setattr(db_booking, key, value)

@@ -5,10 +5,12 @@ import LoginPage from './Pages/LoginPage/LoginPage';
 import RoomBookingPage from './Pages/RoomBookingPage/RoomBookingPage';
 import LogoutPage from './Pages/LogoutPage/LogoutPage';
 import NavBar from './Components/NavBar/NavBar';
+import { Alert } from 'react-bootstrap';
+import { useState } from 'react';
 
 
 function App() {
-
+  const [reqError, setReqError] = useState(false);
   return (
       <div className="App">
       <header className="App-header">
@@ -21,6 +23,9 @@ function App() {
       />
       <div className="page-container">
           <NavBar />
+          <Alert show={reqError} variant="danger">
+            An error occurred.
+          </Alert>
           <Routes>
             <Route path="/" element={<LoginPage />}/>
             <Route path="/sign-up" element={<SignUpPage />}/>
